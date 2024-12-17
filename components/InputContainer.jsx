@@ -3,7 +3,7 @@ import React, { Component, useState } from 'react';
 import { TextInput } from 'react-native';
 import { StyleSheet } from 'react-native';
 
-export default InputContainer = ({ setFirst, firstPlHld, setSecond, secondPlHld }) => {
+export default InputContainer = ({ setFirst, firstPlHld, secondSecure, setSecond, secondPlHld }) => {
     const [isFirstFocused, setIsFirstFocused] = useState(false);
     const [isSecondFocused, setIsSecondFocused] = useState(false);
 
@@ -22,8 +22,9 @@ export default InputContainer = ({ setFirst, firstPlHld, setSecond, secondPlHld 
                 placeholder={secondPlHld}
                 placeholderTextColor={isSecondFocused ? "#2271b1" : "gray"}
                 onChangeText={(text) => { setSecond(text) }}
-                style={[styles.textInput, {borderColor: isSecondFocused ? "#2271b1" : "gray"}]} />
-
+                style={[styles.textInput, {borderColor: isSecondFocused ? "#2271b1" : "gray"}]} 
+                secureTextEntry={secondSecure}
+                />
         </View>
     )
 }

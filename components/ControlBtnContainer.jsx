@@ -1,40 +1,77 @@
-import { Button, Text, View } from 'react-native';
+import { Text, View, TouchableOpacity, StyleSheet } from 'react-native';
 import React from 'react';
-import { StyleSheet } from 'react-native';
 
-export default InputContainer = ({ navigation, optionalBtn }) => {
-    
+export default InputContainer = ({ navigation, onSubmit, optionalBtnText, optionalBtn }) => {
     return (
-        <View style={styles.btnContainer}>
-            <Button style = {styles.backBtn} width={"15%"} color={"#d63638"} onPress={() => navigation.goBack()} title='Back' />
-            <Button style = {styles.nextBtn} color={"#2271b1"} onPress={() => navigation.navigate(optionalBtn) } title={optionalBtn} />
+        <View style={styles.contentContainer}>
+            <View style={styles.btnContainer}>
+            <TouchableOpacity
+                style={styles.backBtn}
+                onPress={() => navigation.goBack()}>
+                <Text style={styles.btnText}>Back</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+                style={styles.nextBtn}
+                onPress={onSubmit}>
+                <Text style={styles.btnText}>Confirm</Text>
+            </TouchableOpacity>
+            </View>
+            {(optionalBtn && optionalBtnText)? (
+            <View style={styles.optText}>
+            <Text>
+                {optionalBtnText + " "}
+            </Text>
+                <TouchableOpacity
+                    onPress={() => navigation.navigate(optionalBtn)}>
+                    <Text style={styles.optBtn}>{optionalBtn}</Text>
+                </TouchableOpacity>
+            </View>
+            ) : undefined}
+
         </View>
-    )
-}
+    );
+};
 
 const styles = StyleSheet.create({
-    btnContainer: {
-        marginTop: 10,
-        marginBottom: 10,
-        display: "flex",
-        flexDirection: "column",
+    contentContainer: {
+        marginTop: 20,
+        marginBottom: 20,
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
         gap: 10,
-        maxWidth: 100,
-        width: "50%",
-        // justifyContent: "",
+    },
+    btnContainer: {
+        display: "flex",
+        flexDirection: "row",
+        gap: 10,
     },
     backBtn: {
-        // maxWidth: 250,
         width: 100,
+        padding: 10,
         borderRadius: 6,
-        backgroundColor: "red",
-        color: "white",
+        backgroundColor: 'red',
+        alignItems: 'center',
     },
     nextBtn: {
-        // maxWidth: 250,
         width: 100,
+        padding: 10,
         borderRadius: 6,
-        backgroundColor: "#fefefe",
-        color: "white",
-    }
-})
+        backgroundColor: '#2271b1',
+        alignItems: 'center',
+    },
+    btnText: {
+        color: 'white',
+        fontSize: 16,
+    },
+    optText: {
+        flexDirection: 'row',
+        paddingTop: 20,
+    },
+    optBtn: {
+        // marginTop: 5,
+        color: '#2271b1',
+        textDecorationLine: 'underline',
+    },
+});
